@@ -36,3 +36,13 @@ I split the work into four stages, and the commit history follows them:
    small commits. Using an agent to help with repetitive tasks when necessary, but always checking and fixing the outcome.
 4. **Evaluation and delivery.** Review of the whole solution, example conversations and the final README.
 
+
+## Store material
+
+The store provided six CSV tables and a policy manual, kept in `data/` as received. Before designing the agent I
+checked them with pandas:
+- [docs/data.md](docs/data.md): what each file holds, what the agent uses it for, and what the checks found
+  (reproducible with `python scripts/audit_data.py`).
+- [docs/inconsistencies.md](docs/inconsistencies.md): contradictions and gaps in the material (two phone numbers,
+  conflicting instalment rules, order totals that don't match their items, a shared customer e-mail...) and the simple
+  handling chosen for each one.
