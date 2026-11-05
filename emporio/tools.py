@@ -61,7 +61,10 @@ def search_products(query: str = "", category: str = "", max_price: float | None
     if max_price is not None:
         p = p[p.current_price <= max_price]
     if only_available:
-        p = p[(p.status == "active") & (p.stock_quantity > 0)]
+        available = p[(p.status == "active") & (p.stock_quantity > 0)]
+        # A specific model that exists but is unavailable must be reported as such, not as "not found"
+        # (manual 7.3: out of stock or discontinued -> say so and suggest alternatives)
+        p = available if (not available.empty or not query) else p
     p = p.sort_values("current_price")
     return {"total_encontrado": len(p), "produtos": [_product_summary(r) for r in p.head(MAX_RESULTS).itertuples()],
             "observacao": "lista limitada aos mais baratos" if len(p) > MAX_RESULTS else ""}
