@@ -23,7 +23,7 @@ The handling follows three rules:
 | 4 | Manual × data | return window counts from receipt, data has no receipt date | estimated delivery used as a reference, final check by the team |
 | 5 | Manual × data | manual lists categories the catalogue doesn't have | catalogue wins: "no products in this category right now" |
 | 6 | Data | order totals differ from the sum of their items | the order total (what was charged) is shown; not explained to the customer |
-| 7 | Data | two customers share an e-mail | identification needs e-mail **and** phone |
+| 7 | Data | two customers share an e-mail | customers are identified by phone, which is unique |
 | 8 | Data | orders with a product still marked `coming_soon` | order status is reported as it is; product status only affects the catalogue |
 | 9 | Data | dates in the data end in March 2026 | the agent uses the real current date |
 | 10 | Manual | "suggest partner stores" for accessories, but none is named | no store is suggested; the agent just explains the store only sells instruments |
@@ -70,9 +70,8 @@ prices. The difference is documented here and not explained to the customer, bec
 
 ### 7. Two customers share an e-mail
 Customers 11 and 43 have the same e-mail address (`bruno.martins@jmail.com`) and different phones.
-**Handling:** an e-mail alone can't identify a customer. Before showing any personal data, the agent asks for the
-**e-mail and the phone**, and both must belong to the same customer. This finding shapes how the agent identifies a
-customer.
+**Handling:** an e-mail can't identify a customer here, so the agent identifies customers by **phone number**, which is
+unique in the table. No data had to be corrected. See [decisions.md](decisions.md#d5-customer-identification-before-personal-data).
 
 ### 8. Orders with a product marked `coming_soon`
 Orders 3 (delivered) and 14 (pending) contain product 130, whose status is `coming_soon`.

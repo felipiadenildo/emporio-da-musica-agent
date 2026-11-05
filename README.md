@@ -46,3 +46,47 @@ checked them with pandas:
 - [docs/inconsistencies.md](docs/inconsistencies.md): contradictions and gaps in the material (two phone numbers,
   conflicting instalment rules, order totals that don't match their items, a shared customer e-mail...) and the simple
   handling chosen for each one.
+
+## The problem in one picture
+
+The diagram is written in [Mermaid](https://mermaid.js.org/), a way of writing diagrams as text. GitHub renders it
+directly, it is versioned like code, and it is easy to change by hand or with an AI assistant.
+
+```mermaid
+flowchart LR
+    C(["Customer"]) <-->|"message / answer"| A["Agent<br/>LLM + system prompt<br/>(persona and rules)"]
+
+    subgraph open["Open to anyone"]
+        SP["search_products<br/>get_product"]
+        GP["get_policy"]
+    end
+    subgraph private["Only after identification"]
+        ID["identify_customer<br/>(phone)"]
+        OR["get_my_orders"]
+    end
+
+    A --> SP & GP & ID
+    ID -->|"customer stored in the session"| OR
+    A --> OR
+
+    SP --> CAT[("products, categories,<br/>promotions")]
+    GP --> MAN[("policy manual")]
+    ID --> CUS[("customers")]
+    OR --> ORD[("orders, order items")]
+```
+
+- The agent decides, at each message, whether it can answer directly, whether it needs **data** (catalogue, orders) or a
+  **policy** (hours, payment, returns, shipping), or whether the question is outside the store's scope.
+- Questions about the store, its products and its rules are open to anyone. Questions about a customer's own orders
+  first require identification, which is checked in code.
+
+## Technical decisions
+
+The decisions and their justifications are recorded in [docs/decisions.md](docs/decisions.md): function calling with a
+few typed tools, the policy manual as a tool, no agent framework, OpenRouter with a configurable model, customer
+identification by phone, a CLI interface, in-memory history, pandas for the data and a Portuguese system prompt.
+
+## Working with AI assistants
+
+[AGENTS.md](AGENTS.md) holds the rules I give to coding assistants in this repository: where facts can come from, how
+privacy is enforced, what must never be committed, and that every change is reviewed and committed by me.
