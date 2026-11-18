@@ -9,20 +9,9 @@ files and a policy manual), know when to look up data (prices, stock, order stat
 
 > **Status:** working prototype. See [How to run](#how-to-run) and the [example conversations](examples/).
 
-## How I work
+## How it was built
 
-I usually work with Claude Code as my main assistant. It is practical for the parts of a project that need context and
-iteration: researching the problem, finding a basis for decisions and shaping the solution. For quick, specific
-questions, formatting or a second opinion on a prompt, I switch to other common models such as GPT, Gemini or
-DeepSeek. When a project needs something more specific or experimental, I use a harness like pi and pick a model from
-a provider such as OpenRouter (for example [Xiaomi MiMo](https://openrouter.ai/xiaomi/mimo-v2.6-pro)).
-
-The assistant speeds up research, writing and code, but the problem definition, the decisions, the checking of results
-and the final organisation stay with me. I need to understand and be able to defend every part of what I deliver.
-
-## How this project is being built
-
-I split the work into four stages, and the commit history follows them:
+The work had four stages, and the commit history follows them:
 
 1. **Understanding the problem.** I read the statement and the store material, and used Claude Code to help me
    understand the problem, research examples, models and good practices, and lay out the options for each decision
@@ -31,9 +20,8 @@ I split the work into four stages, and the commit history follows them:
 2. **Skeleton.** Based on those decisions, the basic structure of the solution: folders, dependencies, configuration
    and empty modules.
 3. **Development.** I built step by step: data loading, tools, prompt and interface, tested along the way, with
-   small commits. Using an agent to help with repetitive tasks when necessary, but always checking and fixing the outcome.
+   small commits, using an agent for repetitive tasks and checking and fixing what it produced.
 4. **Evaluation and delivery.** Review of the whole solution, example conversations and the final README.
-
 
 ## Store material
 
@@ -83,11 +71,6 @@ flowchart LR
 The decisions and their justifications are recorded in [docs/decisions.md](docs/decisions.md): function calling with a
 few typed tools, the policy manual as a tool, no agent framework, OpenRouter with a configurable model, customer
 identification by phone, a CLI interface, in-memory history, pandas for the data and a Portuguese system prompt.
-
-## Working with AI assistants
-
-[AGENTS.md](AGENTS.md) holds the rules I give to coding assistants in this repository: where facts can come from, how
-privacy is enforced, what must never be committed, and that every change is reviewed and committed by me.
 
 ## How to run
 
@@ -182,8 +165,18 @@ identified customer is kept in the `Session` object, `get_my_orders` can only re
 
 ## Use of AI assistants
 
-I used **Claude Code** as my main assistant throughout the project, following the workflow described in
-[How I work](#how-i-work) and the rules in [AGENTS.md](AGENTS.md):
+I usually work with Claude Code as my main assistant. It is practical for the parts of a project that need context and
+iteration: researching the problem, finding a basis for decisions and shaping the solution. For quick, specific
+questions, formatting or a second opinion on a prompt, I switch to other common models such as GPT, Gemini or
+DeepSeek. When a project needs something more specific or experimental, I use a harness like pi and pick a model from
+a provider such as OpenRouter (for example [Xiaomi MiMo](https://openrouter.ai/xiaomi/mimo-v2.6-pro)).
+
+The assistant speeds up research, writing and code, but the problem definition, the decisions, the checking of results
+and the final organisation stay with me. I need to understand and be able to defend every part of what I deliver.
+
+In this project I used **Claude Code** as the main assistant, under the rules in [AGENTS.md](AGENTS.md) (where facts can
+come from, how privacy is enforced, what must never be committed, and that every change is reviewed and committed by
+me):
 - **Understanding and research:** it helped me read the statement and the material, find references (Anthropic's
   guide on building agents, the ReAct and τ-bench papers, the tool-calling docs of OpenAI and OpenRouter) and lay out
   the options for each decision. I made the choices recorded in [docs/decisions.md](docs/decisions.md).
@@ -198,3 +191,8 @@ I used **Claude Code** as my main assistant throughout the project, following th
 
 The commit history shows the order of the work: README and method, data audit, decisions, skeleton, data loading,
 tools, agent, tests, fix, examples and final documentation.
+
+## License
+
+Code under the [MIT License](LICENSE). The store material in `data/` is part of the case statement and is
+included only so the project runs.
